@@ -1,10 +1,20 @@
 package fr.popelier.sarah.dungeons.and.balthromaw.enemy;
 
+/**
+ * Représente l'ennemi Dragon
+ *Dragon hérite de la classe Character(avec un name)
+ * qui elle même hérite de Entity(avec attaque et vie)
+ */
 public class Dragon extends Enemies{
 
-    public Dragon(String type, int attack, int life) {
+    /**
+     * Le constructeur de Dragon
+     * @param attack le niveau attaque propre à Dragon
+     * @param life le niveau de vie propre à Dragon
+     */
+    public Dragon(int attack, int life) {
 
-        super("Dragon", 4, 15);
+        super(4, 15);
     }
 
 }
