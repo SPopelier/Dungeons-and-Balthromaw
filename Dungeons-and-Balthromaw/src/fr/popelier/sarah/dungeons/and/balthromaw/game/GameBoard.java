@@ -22,14 +22,20 @@ public class GameBoard {
      */
     public GameBoard() {
         board = new ArrayList<>();
-        for (int i = 0; i<64; i++){
+        board.add(new EmptyCell()); //Case 1
+        board.add(new EnemyCell());  // Case 2
+        board.add(new WeaponCell()); // Case 3
+        board.add(new PotionCell()); // Case 4
+
+        /*
+        for (int i = 0; i<=4; i++){
             board.add(new Cell() {
                 @Override
                 public String getSymbol() {
-                    return "";
+                    return "V";
                 }
             });
-        }
+        }*/
     }
 
     /**
@@ -58,10 +64,13 @@ public class GameBoard {
         StringBuilder sb = new StringBuilder("Plateau de jeu :\n\n");
         for (int i = 0; i < board.size(); i++) {
             sb.append(board.get(i).getSymbol()).append(" ");
-            if ((i + 1) % 64 == 0) sb.append("\n");
+            //if ((i + 1) % 64 == 0) sb.append("\n");
         }
         return sb.toString();
     }
+
+
+
 
 
 }

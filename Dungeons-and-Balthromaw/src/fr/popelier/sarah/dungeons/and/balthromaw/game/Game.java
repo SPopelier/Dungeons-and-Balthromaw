@@ -105,10 +105,10 @@ public class Game {
         int playerPosition = 1;
         int dieRoll= 0;
 
-        while (playerPosition < 64) {
+        while (playerPosition < 4) {
 
             try {
-                if (playerPosition + dieRoll > 64) {
+                if (playerPosition + dieRoll > 4) {
                     throw new OutOfBoardException("Tu dépasses la dernière case !");
                 }
 
@@ -128,7 +128,7 @@ public class Game {
 
             if (actionChoice == 0) {
                 menu.afficherMessage("Les dés sont lancés");
-                dieRoll = getRandomDieRoll(1, 6);
+                dieRoll = 1; //getRandomDieRoll(1, 6);
                 playerPosition += dieRoll;
                 menu.afficherMessage(("Vous avancez de " + dieRoll + "cases"));
             }
