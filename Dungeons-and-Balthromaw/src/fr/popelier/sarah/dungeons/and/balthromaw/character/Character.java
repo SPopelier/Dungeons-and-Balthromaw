@@ -12,6 +12,7 @@ public class Character extends Entity {
 
 
     /** Le nom du personnage */
+    private int id;
     protected String name;
     protected DefensiveEquipment defensiveEquipment;
     protected OffensiveEquipment offensiveEquipment;
@@ -19,6 +20,10 @@ public class Character extends Entity {
     /**
      * @return le nom du personnage
      */
+    public int getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }

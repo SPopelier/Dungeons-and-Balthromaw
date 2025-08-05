@@ -3,7 +3,10 @@ package fr.popelier.sarah.dungeons.and.balthromaw.game;
 import fr.popelier.sarah.dungeons.and.balthromaw.character.Character;
 import fr.popelier.sarah.dungeons.and.balthromaw.character.Warrior;
 import fr.popelier.sarah.dungeons.and.balthromaw.character.Wizard;
+import fr.popelier.sarah.dungeons.and.balthromaw.db.ConnectionRequest;
 import fr.popelier.sarah.dungeons.and.balthromaw.ui.Menu;
+
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.util.Random;
@@ -34,24 +37,30 @@ public class Game {
         String name = menu.demanderTexte("Quel est ton nom ?");
         menu.afficherMessage("Salut " + name + " !");
 
+        ConnectionRequest dbManager = new ConnectionRequest();
+        dbManager.getHeroes();
+
         String choixPersonnage = menu.demanderTexte("Quel personnage ? Magicien ou Guerrier ?");
-        menu.afficherMessage(("Bienvenue " + name + " noble " + choixPersonnage +  "!"));
+        menu.afficherMessage(("Bienvenue " + name + " noble " + choixPersonnage + "!"));
 
         if (!choixPersonnage.equals("Magicien") && !choixPersonnage.equals("Guerrier")) {
             menu.afficherMessage("Erreur, Veuillez choisir Magicien ou Guerrier !");
-            throw new IllegalArgumentException("Personnage inconnu : " + choixPersonnage );
+            throw new IllegalArgumentException("Personnage inconnu : " + choixPersonnage);
         }
 
-        menu.afficherMessage("Votre " +choixPersonnage+ " à été créer !");
+        menu.afficherMessage("Votre " + choixPersonnage + " à été créer !");
 
         Character player;
 
 
         if (choixPersonnage.equals("Magicien")) {
             player = new Wizard(name);
-        }else {
+        } else {
             player = new Warrior(name);
         }
+        dbManager.createHero(player);
+
+        //appel de la méthode pour sauvegarder le personnage
 
         int buttonChoice = menu.showMainMenu(); //menu option
 
@@ -67,6 +76,7 @@ public class Game {
                 menu.afficherMessage("Nouveau nom : " + player.getName());
                 newGame();
                 // card.afficherCard();
+                //appel de la méthode pour mettre à jour
                 break;
             case 2: //Quitter
                 menu.afficherMessage("Au Revoir !");
@@ -75,6 +85,7 @@ public class Game {
             default:
                 menu.afficherMessage("Aucune option sélectionnée.");
         }
+
     }
 
     /**
@@ -104,6 +115,10 @@ public class Game {
 
         int playerPosition = 1;
         int dieRoll= 0;
+        int result = 0;
+
+        ConnectionRequest dbManager =  new ConnectionRequest();
+        dbManager.saveBoard(gameBoard, playerPosition);
 
         while (playerPosition < 4) {
 
@@ -111,8 +126,6 @@ public class Game {
                 if (playerPosition + dieRoll > 4) {
                     throw new OutOfBoardException("Tu dépasses la dernière case !");
                 }
-
-            menu.afficherMessage("Vous êtes à la case " + playerPosition + " .");
 
                 // Affichage du plateau
                 gameBoard.setCase(playerPosition - 1, new Cell() {
@@ -126,12 +139,16 @@ public class Game {
 
             int actionChoice = menu.playGame();
 
+
             if (actionChoice == 0) {
                 menu.afficherMessage("Les dés sont lancés");
                 dieRoll = 1; //getRandomDieRoll(1, 6);
-                playerPosition += dieRoll;
+                result = playerPosition += dieRoll;
                 menu.afficherMessage(("Vous avancez de " + dieRoll + "cases"));
-            }
+                menu.afficherMessage("Vous êtes à la case " + playerPosition + " .");
+            } else  {
+                System.exit(0);
+                }
             } catch (OutOfBoardException e) {
                 System.out.println("⚠️ Erreur : " + e.getMessage());
                 menu.afficherMessage("⛔ Tour annulé. Restez sur la même case.");
