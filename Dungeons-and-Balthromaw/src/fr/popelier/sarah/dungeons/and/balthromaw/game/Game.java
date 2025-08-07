@@ -4,10 +4,9 @@ import fr.popelier.sarah.dungeons.and.balthromaw.character.Character;
 import fr.popelier.sarah.dungeons.and.balthromaw.character.Warrior;
 import fr.popelier.sarah.dungeons.and.balthromaw.character.Wizard;
 import fr.popelier.sarah.dungeons.and.balthromaw.db.ConnectionRequest;
+import fr.popelier.sarah.dungeons.and.balthromaw.game.cell.Cell;
 import fr.popelier.sarah.dungeons.and.balthromaw.ui.Menu;
 
-import java.sql.Connection;
-import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.util.Random;
 import javax.swing.JOptionPane;
@@ -25,6 +24,8 @@ public class Game {
      */
     private ActionEvent ActionEvent;
 
+    private String choixPersonnage;
+
     /**
      * Démarre le jeu en affichant les menus et demandent de choix du joueur
      * créatin de personnage, de modifiction de nom
@@ -40,7 +41,7 @@ public class Game {
         ConnectionRequest dbManager = new ConnectionRequest();
         dbManager.getHeroes();
 
-        String choixPersonnage = menu.demanderTexte("Quel personnage ? Magicien ou Guerrier ?");
+        choixPersonnage = menu.demanderTexte("Quel personnage ? Magicien ou Guerrier ?");
         menu.afficherMessage(("Bienvenue " + name + " noble " + choixPersonnage + "!"));
 
         if (!choixPersonnage.equals("Magicien") && !choixPersonnage.equals("Guerrier")) {
@@ -60,7 +61,6 @@ public class Game {
         }
         dbManager.createHero(player);
 
-        //appel de la méthode pour sauvegarder le personnage
 
         int buttonChoice = menu.showMainMenu(); //menu option
 
@@ -74,6 +74,7 @@ public class Game {
                 String newName = menu.demanderTexte("Quel est votre nouveau nom de " + player.getName() + "?");
                 player.setName(newName);
                 menu.afficherMessage("Nouveau nom : " + player.getName());
+                dbManager.editHero(player);
                 newGame();
                 // card.afficherCard();
                 //appel de la méthode pour mettre à jour
@@ -118,9 +119,9 @@ public class Game {
         int result = 0;
 
         ConnectionRequest dbManager =  new ConnectionRequest();
-        dbManager.saveBoard(gameBoard, playerPosition);
+       // dbManager.saveBoard(gameBoard, playerPosition);
 
-        while (playerPosition < 4) {
+        while (playerPosition < 10) {
 
             try {
                 if (playerPosition + dieRoll > 4) {
@@ -131,7 +132,12 @@ public class Game {
                 gameBoard.setCase(playerPosition - 1, new Cell() {
                     @Override
                     public String getSymbol() {
-                        return "J";
+                        return choixPersonnage;
+                    }
+
+                    @Override
+                    public void interact(Character player) {
+                        menu.afficherMessage("Test");
                     }
                 });
 

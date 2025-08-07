@@ -1,7 +1,7 @@
 package fr.popelier.sarah.dungeons.and.balthromaw.character;
 
-import fr.popelier.sarah.dungeons.and.balthromaw.equipment.DefensiveEquipment;
-import fr.popelier.sarah.dungeons.and.balthromaw.equipment.OffensiveEquipment;
+import fr.popelier.sarah.dungeons.and.balthromaw.equipment.defensive.DefensiveEquipment;
+import fr.popelier.sarah.dungeons.and.balthromaw.equipment.offensive.OffensiveEquipment;
 import fr.popelier.sarah.dungeons.and.balthromaw.model.Entity;
 
 /**
@@ -12,7 +12,7 @@ public class Character extends Entity {
 
 
     /** Le nom du personnage */
-    private int id;
+    private Long id;
     protected String name;
     protected DefensiveEquipment defensiveEquipment;
     protected OffensiveEquipment offensiveEquipment;
@@ -20,13 +20,14 @@ public class Character extends Entity {
     /**
      * @return le nom du personnage
      */
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
     public String getName() {
         return name;
     }
+    
 
     /**
      *
@@ -44,6 +45,10 @@ public class Character extends Entity {
         return offensiveEquipment;
     }
 
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     /**
      * modifie le nom du personnage
      *
@@ -67,7 +72,6 @@ public class Character extends Entity {
         this.offensiveEquipment = offensiveEquipment;
     }
 
-
     /**
      * Construit un nouveau personnage avec un nom + une valeur d'attaque + le niveau de vie
      *
@@ -80,6 +84,8 @@ public class Character extends Entity {
         this.name = name;
     }
 
-
-
+    public int changeLife(int life) {
+        this.life += life;
+        return life;
+    }
 }

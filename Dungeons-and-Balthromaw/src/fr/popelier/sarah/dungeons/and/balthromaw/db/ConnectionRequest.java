@@ -46,18 +46,22 @@ public class ConnectionRequest {
     }
 
     // ------------------- CREATE HERO -------------------
-    public void createHero(Character character) {
+    public void createHero(Character player) {
         try {
             Connection conn = connectToDB();
-            String query = "INSERT INTO DungeonsAndBalthromaw.Entity(name, attack, life) VALUES(? , ? , ?)";
-            PreparedStatement stmt = conn.prepareStatement(query);
+            String query = "INSERT INTO DungeonsAndBalthromaw.Entity(name, attack, life, defensiveEquipment, offensiveEquipment) VALUES(? , ? , ?, ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
-            stmt.setString(1, character.getName());
-            stmt.setInt(2, character.getAttack());
-            stmt.setInt(3, character.getLife());
-            //stmt.setString(4, character.getDefensiveEquipment().toString());
-            //stmt.setString(5, character.getOffensiveEquipment().toString());
+            stmt.setString(1, player.getName());
+            stmt.setInt(2, player.getAttack());
+            stmt.setInt(3, player.getLife());
+            stmt.setObject(4, player.getDefensiveEquipment());
+            stmt.setObject(5, player.getOffensiveEquipment());
             stmt.executeUpdate();
+            ResultSet keys =  stmt.getGeneratedKeys(); // donnée renvoyée depuis la BDD 
+            keys.next(); // récupère la première donnée de la BDD
+            Long id = keys.getLong(1); // récupère la data de la première donnée (next)
+            player.setId(id);
 
         } catch (SQLException e) {
             e.printStackTrace(); //pour loguer les erreurs
@@ -75,7 +79,7 @@ public class ConnectionRequest {
             stmt.setString(1, character.getName());
             stmt.setInt(2, character.getAttack());
             stmt.setInt(3, character.getLife());
-            stmt.setInt(4, character.getId());
+            stmt.setLong(4, character.getId());
             int rowsUpdated = stmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -92,7 +96,7 @@ public class ConnectionRequest {
             PreparedStatement stmt = conn.prepareStatement(query);
 
             stmt.setInt(1, character.getLife());
-            stmt.setInt(2, character.getId());
+            stmt.setLong(2, character.getId());
 
             int rows =  stmt.executeUpdate();
             return rows;

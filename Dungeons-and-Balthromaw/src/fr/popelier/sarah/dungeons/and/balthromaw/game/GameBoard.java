@@ -1,7 +1,8 @@
 package fr.popelier.sarah.dungeons.and.balthromaw.game;
 
 import java.util.ArrayList;
-import fr.popelier.sarah.dungeons.and.balthromaw.game.Cell;
+
+import fr.popelier.sarah.dungeons.and.balthromaw.game.cell.*;
 
 /**
  * représente le plateau de jeu
@@ -24,15 +25,21 @@ public class GameBoard {
         board = new ArrayList<>();
         board.add(new EmptyCell()); //Case 1
         board.add(new EnemyCell());  // Case 2
-        board.add(new WeaponCell()); // Case 3
-        board.add(new PotionCell()); // Case 4
+        board.add(new OffensiveCell()); // Case 3
+        board.add(new DefensiveCell()); // Case 4
+        board.add(new EmptyCell()); // Case 5
+        board.add(new DefensiveCell()); // Case 6
+        board.add(new EnemyCell()); // Case 7
+        board.add(new OffensiveCell()); // Case 8
+        board.add(new EmptyCell()); // Case 9
+        board.add(new DefensiveCell()); // Case 10
 
         /*
         for (int i = 0; i<=4; i++){
             board.add(new Cell() {
                 @Override
                 public String getSymbol() {
-                    return "V";
+                    return "Vide";
                 }
             });
         }*/
