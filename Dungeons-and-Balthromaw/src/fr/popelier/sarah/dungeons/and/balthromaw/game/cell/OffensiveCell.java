@@ -13,48 +13,36 @@ import java.util.Random;
  */
 public class OffensiveCell extends Cell {
 
-    OffensiveEquipment offensiveEquipment;
+    private OffensiveEquipment equipment;
     Menu menu = new Menu();
 
 
     public OffensiveEquipment getOffensiveEquipment() {
-        return offensiveEquipment;
+        return equipment;
     }
+
+        public OffensiveCell(OffensiveEquipment equipment) {
+            this.equipment = equipment;
+        }
 
     @Override
     public String getSymbol() {
-        return "Arme";
-    }
-
-    public OffensiveCell() {
-        Random random = new Random();
-        int value = random.nextInt(4) +1;
-
-        switch (value) {
-            case 1: offensiveEquipment = new Sword();
-            break;
-            case 2: offensiveEquipment = new Club();
-            break;
-            case 3: offensiveEquipment = new FireBall();
-            break;
-            default: offensiveEquipment = new Flash();
-        }
-
+        return " | Arme |";
     }
 
     @Override
     public void interact(Character player) {
 
-        if (offensiveEquipment instanceof Sword || offensiveEquipment instanceof Club) {
+        if (equipment instanceof Sword || equipment instanceof Club) {
             if (player instanceof Warrior) {
-                player.setOffensiveEquipment(offensiveEquipment);
+                player.setOffensiveEquipment(equipment);
                 menu.afficherMessage("Guerrier : tu obtiens une arme !");
             } else {
                 menu.afficherMessage("Tu n'est pas un Guerrier, tu ne peux pas prendre cette arme !");
             }
-        } else if (offensiveEquipment instanceof FireBall || offensiveEquipment instanceof Flash) {
+        } else if (equipment instanceof FireBall || equipment instanceof Flash) {
             if (player instanceof Wizard) {
-                player.setOffensiveEquipment(offensiveEquipment);
+                player.setOffensiveEquipment(equipment);
                 menu.afficherMessage("Magicien : tu obtiens un sort !");
             } else {
                 menu.afficherMessage("Tu n'est pas un Magicien, tu ne peux pas prendre ce sort !");

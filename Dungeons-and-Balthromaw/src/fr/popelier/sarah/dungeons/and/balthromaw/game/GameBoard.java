@@ -1,67 +1,56 @@
 package fr.popelier.sarah.dungeons.and.balthromaw.game;
 
 import java.util.ArrayList;
+import java.util.Random;
 
+import fr.popelier.sarah.dungeons.and.balthromaw.character.Character;
+import fr.popelier.sarah.dungeons.and.balthromaw.enemy.Dragon;
+import fr.popelier.sarah.dungeons.and.balthromaw.enemy.Goblin;
+import fr.popelier.sarah.dungeons.and.balthromaw.enemy.Sorcerer;
+import fr.popelier.sarah.dungeons.and.balthromaw.equipment.offensive.Club;
+import fr.popelier.sarah.dungeons.and.balthromaw.equipment.offensive.FireBall;
+import fr.popelier.sarah.dungeons.and.balthromaw.equipment.offensive.Flash;
+import fr.popelier.sarah.dungeons.and.balthromaw.equipment.offensive.Sword;
+import fr.popelier.sarah.dungeons.and.balthromaw.equipment.potion.BigPotion;
+import fr.popelier.sarah.dungeons.and.balthromaw.equipment.potion.Potion;
+import fr.popelier.sarah.dungeons.and.balthromaw.equipment.potion.StandardPotion;
 import fr.popelier.sarah.dungeons.and.balthromaw.game.cell.*;
 
-/**
- * représente le plateau de jeu
- * Chaque case est une instance de la classe abstraite {@link Cell}.
- * Le plateau permet de consulter, modifier et afficher l'état des cellules.
- */
+
 public class GameBoard {
 
-    /**
-     * liste des cases du plateau
-     * taille fixe à 64
-     */
-    private ArrayList<Cell> board;
+    protected Cell[][] board;
 
-    /**
-     * constructeur : initialisation du plateau (vide)
-     * Chaque cellule est une implémentation anonyme de {@link Cell} retournant un symbole vide.
-     */
+    private final int LIGNES = 8;
+    private final int COLONNES = 8;
+
+
     public GameBoard() {
-        board = new ArrayList<>();
-        board.add(new EmptyCell()); //Case 1
-        board.add(new EnemyCell());  // Case 2
-        board.add(new OffensiveCell()); // Case 3
-        board.add(new DefensiveCell()); // Case 4
-        board.add(new EmptyCell()); // Case 5
-        board.add(new DefensiveCell()); // Case 6
-        board.add(new EnemyCell()); // Case 7
-        board.add(new OffensiveCell()); // Case 8
-        board.add(new EmptyCell()); // Case 9
-        board.add(new DefensiveCell()); // Case 10
 
-        /*
-        for (int i = 0; i<=4; i++){
-            board.add(new Cell() {
-                @Override
-                public String getSymbol() {
-                    return "Vide";
-                }
-            });
-        }*/
+        board = new Cell[LIGNES][COLONNES];
+        for (int i = 0; i< LIGNES; i++){
+           for (int j = 0; j< COLONNES; j++){
+               board[i][j] = new EmptyCell();
+           }
+        }
+        RandomCells();
+        }
+
+
+    public Cell getCase(int ligne, int colonne) {
+        return board[ligne][colonne];
     }
 
-    /**
-     *
-     * @param index index de la case
-     * @return L'objet {@link Cell} à cette position
-     */
-    public Cell getCase(int index) {
-        return board.get(index);
+    public void setCell(int ligne, int colonne, Cell cell) {
+        board[ligne][colonne] = cell;
     }
 
-    /**
-     * Modifie la valeur d'une case.
-     *
-     * @param index index de la case (0 à 63)
-     * @param cell cellule à stocker valeur à y stocker (ex : 1 = joueur, 0 = vide, 2 = piège, etc.)
-     */
-    public void setCase(int index, Cell cell) {
-        board.set(index, cell);
+    private void setCells(int[] indexes, Cell c) {
+        for (int i = 0; i< LIGNES; i++){
+            for (int j = 0; j< COLONNES; j++){
+                board[i][j] = new EmptyCell();
+            }
+        }
     }
 
     /**
@@ -69,15 +58,80 @@ public class GameBoard {
      */
     public String display() {
         StringBuilder sb = new StringBuilder("Plateau de jeu :\n\n");
-        for (int i = 0; i < board.size(); i++) {
-            sb.append(board.get(i).getSymbol()).append(" ");
-            //if ((i + 1) % 64 == 0) sb.append("\n");
+        for (int i = 0; i< LIGNES; i++){
+            for (int j = 0; j< COLONNES; j++) {
+                sb.append(board[i][j].getSymbol()).append(" ");
+            }
+             sb.append("\n");
         }
         return sb.toString();
     }
 
+    public void RandomCells() {
+        Random random = new Random();
 
+        //Place 4 Dragons
+        for  (int i = 0; i< 3; i++){
+            int row = random.nextInt(LIGNES);
+            int col = random.nextInt(COLONNES);
+            board[row][col] = new EnemyCell(new Dragon(4, 15));
+        }
 
+        //Place 10 Sorciers
+        for  (int i = 0; i< 9; i++){
+            int row = random.nextInt(LIGNES);
+            int col = random.nextInt(COLONNES);
+            board[row][col] = new EnemyCell(new Sorcerer(2, 9));
+        }
 
+        //Place 10 Gobelins
+        for  (int i = 0; i< 9; i++){
+            int row = random.nextInt(LIGNES);
+            int col = random.nextInt(COLONNES);
+            board[row][col] = new EnemyCell(new Goblin(1, 6));
+        }
 
+        //Place 5 Massues
+        for  (int i = 0; i< 4; i++){
+            int row = random.nextInt(LIGNES);
+            int col = random.nextInt(COLONNES);
+            board[row][col] = new OffensiveCell(new Club());
+        }
+
+        //Placer 4 Epées
+        for  (int i = 0; i< 3; i++){
+            int row = random.nextInt(LIGNES);
+            int col = random.nextInt(COLONNES);
+            board[row][col] = new OffensiveCell(new Sword());
+        }
+
+        //Placer 5 Eclairs
+        for  (int i = 0; i< 4; i++){
+            int row = random.nextInt(LIGNES);
+            int col = random.nextInt(COLONNES);
+            board[row][col] = new OffensiveCell(new Flash());
+        }
+
+        //Placer 2 Boules de feu
+        for  (int i = 0; i< 1; i++) {
+            int row = random.nextInt(LIGNES);
+            int col = random.nextInt(COLONNES);
+            board[row][col] = new OffensiveCell(new FireBall());
+        }
+
+        //Placer 6 potions strd
+        for  (int i = 0; i< 4; i++){
+            int row = random.nextInt(LIGNES);
+            int col = random.nextInt(COLONNES);
+            board[row][col] = new PotionCell(new StandardPotion());
+        }
+
+        //Placer 2 Big Potion
+        for  (int i = 0; i< 4; i++){
+            int row = random.nextInt(LIGNES);
+            int col = random.nextInt(COLONNES);
+            board[row][col] = new PotionCell(new BigPotion());
+        }
+    }
 }
+

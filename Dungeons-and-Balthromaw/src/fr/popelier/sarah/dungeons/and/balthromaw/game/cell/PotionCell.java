@@ -9,7 +9,6 @@ import fr.popelier.sarah.dungeons.and.balthromaw.ui.Menu;
 import java.util.Random;
 
 public class PotionCell extends Cell {
-
     Potion potion;
     Menu menu = new Menu();
 
@@ -17,22 +16,14 @@ public class PotionCell extends Cell {
         return potion;
     }
 
-    @Override
-    public String getSymbol() {
-        return "Potion";
+    public PotionCell(Potion potion) {
+        this.potion = potion;
     }
 
-    public PotionCell() {
-        Random random = new Random();
-        int value = random.nextInt(2) + 1;
 
-        switch (value) {
-            case 1:
-                potion = new StandardPotion();
-                break;
-            default:
-                potion = new BigPotion();
-        }
+    @Override
+    public String getSymbol() {
+        return "| Po |";
     }
 
     @Override

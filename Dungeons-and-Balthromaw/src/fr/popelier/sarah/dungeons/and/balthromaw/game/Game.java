@@ -5,6 +5,7 @@ import fr.popelier.sarah.dungeons.and.balthromaw.character.Warrior;
 import fr.popelier.sarah.dungeons.and.balthromaw.character.Wizard;
 import fr.popelier.sarah.dungeons.and.balthromaw.db.ConnectionRequest;
 import fr.popelier.sarah.dungeons.and.balthromaw.game.cell.Cell;
+import fr.popelier.sarah.dungeons.and.balthromaw.game.cell.PlayerCell;
 import fr.popelier.sarah.dungeons.and.balthromaw.ui.Menu;
 
 import java.awt.event.ActionEvent;
@@ -76,7 +77,7 @@ public class Game {
                 menu.afficherMessage("Nouveau nom : " + player.getName());
                 dbManager.editHero(player);
                 newGame();
-                // card.afficherCard();
+                //card.afficherCard();
                 //appel de la méthode pour mettre à jour
                 break;
             case 2: //Quitter
@@ -118,28 +119,24 @@ public class Game {
         int dieRoll= 0;
         int result = 0;
 
+
+
         ConnectionRequest dbManager =  new ConnectionRequest();
        // dbManager.saveBoard(gameBoard, playerPosition);
 
-        while (playerPosition < 10) {
+        while (playerPosition < 65) {
 
             try {
-                if (playerPosition + dieRoll > 4) {
+                if (playerPosition + dieRoll > 64) {
                     throw new OutOfBoardException("Tu dépasses la dernière case !");
                 }
 
                 // Affichage du plateau
-                gameBoard.setCase(playerPosition - 1, new Cell() {
-                    @Override
-                    public String getSymbol() {
-                        return choixPersonnage;
-                    }
+                int ligne = (playerPosition - 1) /8;
+                int colonne = (playerPosition - 1) % 8;
+                gameBoard.setCell(ligne, colonne, new PlayerCell(choixPersonnage));
 
-                    @Override
-                    public void interact(Character player) {
-                        menu.afficherMessage("Test");
-                    }
-                });
+
 
                 JOptionPane.showMessageDialog(null, gameBoard.display(), "Plateau de jeu", JOptionPane.INFORMATION_MESSAGE);
 
@@ -148,10 +145,10 @@ public class Game {
 
             if (actionChoice == 0) {
                 menu.afficherMessage("Les dés sont lancés");
-                dieRoll = 1; //getRandomDieRoll(1, 6);
+                dieRoll = getRandomDieRoll(1, 6);
                 result = playerPosition += dieRoll;
-                menu.afficherMessage(("Vous avancez de " + dieRoll + "cases"));
-                menu.afficherMessage("Vous êtes à la case " + playerPosition + " .");
+                menu.afficherMessage(("Vous avancez de " + dieRoll + "cases et vous êtes à la case " + playerPosition + "!"));
+               // menu.afficherMessage(("Votre niveau de vie est de : " + Life + " et votre niveau d'attaque est de : " + Attack + "!"));
             } else  {
                 System.exit(0);
                 }

@@ -1,6 +1,7 @@
 package fr.popelier.sarah.dungeons.and.balthromaw.game.cell;
 
 import fr.popelier.sarah.dungeons.and.balthromaw.character.Character;
+import fr.popelier.sarah.dungeons.and.balthromaw.enemy.Enemies;
 import fr.popelier.sarah.dungeons.and.balthromaw.ui.Menu;
 
 /**
@@ -8,11 +9,20 @@ import fr.popelier.sarah.dungeons.and.balthromaw.ui.Menu;
  */
 public class EnemyCell extends Cell {
 
+    Enemies enemies;
     Menu menu = new Menu();
+
+    public Enemies getEnemies() {
+        return enemies;
+    }
+
+    public EnemyCell(Enemies enemies) {
+        this.enemies = enemies;
+    }
 
     @Override
     public String getSymbol() {
-        return "Ennemi";
+        return "| En |";
     }
 
     @Override

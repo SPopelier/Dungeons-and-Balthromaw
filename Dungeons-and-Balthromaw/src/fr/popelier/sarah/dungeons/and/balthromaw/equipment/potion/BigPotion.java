@@ -12,6 +12,6 @@ public class BigPotion extends Potion {
      * Le constructeur de BigPotion
      */
     public BigPotion() {
-        super("StandardPotion", 5);
+        super("BigPotion", 5);
     }
 }

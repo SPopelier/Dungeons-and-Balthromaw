@@ -15,42 +15,35 @@ import java.util.Random;
  */
 public class DefensiveCell extends Cell {
 
-    DefensiveEquipment defensiveEquipment;
+    DefensiveEquipment equipment;
     Menu menu = new Menu();
 
     public DefensiveEquipment getDefensiveEquipment() {
-        return defensiveEquipment;
+        return equipment;
+    }
+
+    public DefensiveCell(DefensiveEquipment equipment) {
+        this.equipment = equipment;
     }
 
     @Override
     public String getSymbol() {
-        return "Défensif équipement";
-    }
-
-    public DefensiveCell() {
-        Random random = new Random();
-        int value = random.nextInt(2) +1;
-
-        switch (value) {
-            case 1: defensiveEquipment = new ProtectedSpell();
-                break;
-            default: defensiveEquipment = new Shield();
-        }
+        return "| Déf |";
     }
 
     @Override
     public void interact(Character player) {
 
-        if (defensiveEquipment instanceof Shield) {
+        if (equipment instanceof Shield) {
             if (player instanceof Warrior) {
-                player.setDefensiveEquipment(defensiveEquipment);
+                player.setDefensiveEquipment(equipment);
                 menu.afficherMessage("Guerrier : tu obtiens un bouclier !");
             } else {
                 menu.afficherMessage("Tu n'est pas un Guerrier, tu ne peux pas prendre ce bouclier !");
             }
-        } else if (defensiveEquipment instanceof ProtectedSpell) {
+        } else if (equipment instanceof ProtectedSpell) {
             if (player instanceof Wizard) {
-                player.setDefensiveEquipment(defensiveEquipment);
+                player.setDefensiveEquipment(equipment);
                 menu.afficherMessage("Tu n'est pas un Magicien, tu ne peux pas prendre ce sort !");
             }
         } else {

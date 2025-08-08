@@ -9,9 +9,11 @@ import fr.popelier.sarah.dungeons.and.balthromaw.ui.Menu;
 public class EmptyCell extends Cell {
 
     Menu menu = new Menu();
+
+
     @Override
     public String getSymbol() {
-        return "Vide"; // pour vide
+        return "| Vide |"; // pour vide
     }
 
     @Override
