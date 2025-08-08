@@ -28,5 +28,7 @@ public class EnemyCell extends Cell {
     @Override
     public void interact(Character player) {
         menu.afficherMessage("Noble héro un ennemi est là , BAGUARRE ? ou FUITE ?");
+        //LOGIQUE DE COMBAT
+        enemies.interactWithPlayer(player);
     }
 }

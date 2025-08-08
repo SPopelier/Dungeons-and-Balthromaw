@@ -1,9 +1,7 @@
 package fr.popelier.sarah.dungeons.and.balthromaw.game;
 
-import java.util.ArrayList;
 import java.util.Random;
 
-import fr.popelier.sarah.dungeons.and.balthromaw.character.Character;
 import fr.popelier.sarah.dungeons.and.balthromaw.enemy.Dragon;
 import fr.popelier.sarah.dungeons.and.balthromaw.enemy.Goblin;
 import fr.popelier.sarah.dungeons.and.balthromaw.enemy.Sorcerer;
@@ -12,7 +10,6 @@ import fr.popelier.sarah.dungeons.and.balthromaw.equipment.offensive.FireBall;
 import fr.popelier.sarah.dungeons.and.balthromaw.equipment.offensive.Flash;
 import fr.popelier.sarah.dungeons.and.balthromaw.equipment.offensive.Sword;
 import fr.popelier.sarah.dungeons.and.balthromaw.equipment.potion.BigPotion;
-import fr.popelier.sarah.dungeons.and.balthromaw.equipment.potion.Potion;
 import fr.popelier.sarah.dungeons.and.balthromaw.equipment.potion.StandardPotion;
 import fr.popelier.sarah.dungeons.and.balthromaw.game.cell.*;
 
@@ -37,7 +34,7 @@ public class GameBoard {
         }
 
 
-    public Cell getCase(int ligne, int colonne) {
+    public Cell getCell(int ligne, int colonne) {
         return board[ligne][colonne];
     }
 

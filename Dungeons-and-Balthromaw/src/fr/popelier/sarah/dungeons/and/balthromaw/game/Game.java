@@ -4,8 +4,7 @@ import fr.popelier.sarah.dungeons.and.balthromaw.character.Character;
 import fr.popelier.sarah.dungeons.and.balthromaw.character.Warrior;
 import fr.popelier.sarah.dungeons.and.balthromaw.character.Wizard;
 import fr.popelier.sarah.dungeons.and.balthromaw.db.ConnectionRequest;
-import fr.popelier.sarah.dungeons.and.balthromaw.game.cell.Cell;
-import fr.popelier.sarah.dungeons.and.balthromaw.game.cell.PlayerCell;
+import fr.popelier.sarah.dungeons.and.balthromaw.game.cell.*;
 import fr.popelier.sarah.dungeons.and.balthromaw.ui.Menu;
 
 import java.awt.event.ActionEvent;
@@ -16,7 +15,6 @@ import javax.swing.JOptionPane;
  * Représente la logique du jeu
  * Gère le choix du personnage, les interactions avec le joueur  via l'interface {@code Menu},
  * et la boucle de jeu (lancement de dés, déplacement, vérification de victoire ou d'erreur).
- *
  */
 public class Game {
 
@@ -69,14 +67,14 @@ public class Game {
         switch (buttonChoice) {
             case 0: //Sauvegarder
                 menu.afficherMessage("Le jeu commence !");
-                newGame();
+                newGame(player);
                 break;
             case 1: //  Modifier
                 String newName = menu.demanderTexte("Quel est votre nouveau nom de " + player.getName() + "?");
                 player.setName(newName);
                 menu.afficherMessage("Nouveau nom : " + player.getName());
                 dbManager.editHero(player);
-                newGame();
+                newGame(player);
                 //card.afficherCard();
                 //appel de la méthode pour mettre à jour
                 break;
@@ -97,12 +95,13 @@ public class Game {
 
     /**
      * simule le lancer de dé
+     *
      * @param min la valeur minimale possible
      * @param max la valeur maximale possible
      * @return le résultat du dé
      */
     public static int getRandomDieRoll(int min, int max) {
-        return random.nextInt(max - min +1) + min;
+        return random.nextInt(max - min + 1) + min;
     }
 
     /**
@@ -110,19 +109,17 @@ public class Game {
      * gère le déplacement du plateau sur 64 cases, selon le lancé de dé
      * si le joueur dépasse la dernière case une {@code IllegalArgumentException} est mise en place
      */
-    private void newGame( ) {
+    private void newGame(Character player) {
 
         Menu menu = new Menu();
         GameBoard gameBoard = new GameBoard();
+        ConnectionRequest dbManager = new ConnectionRequest();
 
         int playerPosition = 1;
-        int dieRoll= 0;
+        int dieRoll = 0;
         int result = 0;
 
-
-
-        ConnectionRequest dbManager =  new ConnectionRequest();
-       // dbManager.saveBoard(gameBoard, playerPosition);
+        dbManager.saveBoard(gameBoard, playerPosition);
 
         while (playerPosition < 65) {
 
@@ -131,33 +128,38 @@ public class Game {
                     throw new OutOfBoardException("Tu dépasses la dernière case !");
                 }
 
-                // Affichage du plateau
-                int ligne = (playerPosition - 1) /8;
-                int colonne = (playerPosition - 1) % 8;
-                gameBoard.setCell(ligne, colonne, new PlayerCell(choixPersonnage));
+                int actionChoice = menu.playGame();
 
+                if (actionChoice == 0) {
+                    menu.afficherMessage("Les dés sont lancés");
+                    dieRoll = getRandomDieRoll(1, 6);
+                    result = playerPosition += dieRoll;
 
+                    int ligne = (playerPosition - 1) / 8;
+                    int colonne = (playerPosition - 1) % 8;
 
-                JOptionPane.showMessageDialog(null, gameBoard.display(), "Plateau de jeu", JOptionPane.INFORMATION_MESSAGE);
+                    Cell currentCell = gameBoard.getCell(ligne, colonne);
+                    gameBoard.setCell(ligne, colonne, new PlayerCell(choixPersonnage));
 
-            int actionChoice = menu.playGame();
+                    JOptionPane.showMessageDialog(null, gameBoard.display(), "Plateau de jeu", JOptionPane.INFORMATION_MESSAGE);
 
+                    menu.afficherMessage(("Vous avancez de " + dieRoll + "cases et vous êtes à la case " + playerPosition + "!"));
+                    menu.afficherMessage(("Votre niveau de vie est de : " + player.getLife() + " et votre niveau d'attaque est de : " + player.getAttack() + "!"));
 
-            if (actionChoice == 0) {
-                menu.afficherMessage("Les dés sont lancés");
-                dieRoll = getRandomDieRoll(1, 6);
-                result = playerPosition += dieRoll;
-                menu.afficherMessage(("Vous avancez de " + dieRoll + "cases et vous êtes à la case " + playerPosition + "!"));
-               // menu.afficherMessage(("Votre niveau de vie est de : " + Life + " et votre niveau d'attaque est de : " + Attack + "!"));
-            } else  {
-                System.exit(0);
+                    currentCell.interact(player);
+
+                } else {
+                    System.exit(0);
                 }
+
             } catch (OutOfBoardException e) {
                 System.out.println("⚠️ Erreur : " + e.getMessage());
                 menu.afficherMessage("⛔ Tour annulé. Restez sur la même case.");
                 dieRoll = 0;
             }
-        }
-        menu.afficherMessage("ßravo ! Vous avez gagné !");
+        } menu.afficherMessage("ßravo ! Vous avez gagné !");
     }
 }
+
+
+

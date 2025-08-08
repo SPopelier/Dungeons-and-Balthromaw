@@ -3,12 +3,13 @@ package fr.popelier.sarah.dungeons.and.balthromaw.character;
 import fr.popelier.sarah.dungeons.and.balthromaw.equipment.defensive.DefensiveEquipment;
 import fr.popelier.sarah.dungeons.and.balthromaw.equipment.offensive.OffensiveEquipment;
 import fr.popelier.sarah.dungeons.and.balthromaw.model.Entity;
+import fr.popelier.sarah.dungeons.and.balthromaw.model.Fighter;
 
 /**
  *Représente un personnage jouable Warrior ou Sorcerer
  * Chaque personnage hérite des attributs d'Entity (attaque et vie), et possède un nom.
  */
-public class Character extends Entity {
+public class Character extends Entity implements Fighter {
 
 
     /** Le nom du personnage */
@@ -27,7 +28,26 @@ public class Character extends Entity {
     public String getName() {
         return name;
     }
-    
+
+    public int getLife() {
+        return life;
+    }
+
+    public int getAttack() {
+        return attack;
+    }
+
+    @Override
+    public void interactWithPlayer(Character player) {
+
+    }
+
+    public void setLife(int life) {
+        this.life = life;
+    }
+    public void setAttack(int attack) {
+        this.attack = attack;
+    }
 
     /**
      *
