@@ -4,6 +4,10 @@ import fr.popelier.sarah.dungeons.and.balthromaw.character.Character;
 import fr.popelier.sarah.dungeons.and.balthromaw.enemy.Enemies;
 import fr.popelier.sarah.dungeons.and.balthromaw.ui.Menu;
 
+import javax.swing.*;
+
+import static fr.popelier.sarah.dungeons.and.balthromaw.game.Game.getRandomDieRoll;
+
 /**
  * Classe répresentant un ennemi et qui retourne textuellement E
  */
@@ -11,6 +15,8 @@ public class EnemyCell extends Cell {
 
     Enemies enemies;
     Menu menu = new Menu();
+    int dieRoll;
+    int playerPosition;
 
     public Enemies getEnemies() {
         return enemies;
@@ -27,8 +33,26 @@ public class EnemyCell extends Cell {
 
     @Override
     public void interact(Character player) {
-        menu.afficherMessage("Noble héro un ennemi est là , BAGUARRE ? ou FUITE ?");
-        //LOGIQUE DE COMBAT
-        enemies.interactWithPlayer(player);
+
+        int actionChoice = menu.choixCombat(); //menu option
+
+        switch (actionChoice) {
+            case 0: //BAGARRE
+                menu.afficherMessage("BAGARRE !");
+                enemies.interactWithPlayer(player);
+                break;
+            case 1: //FUITE
+                menu.afficherMessage("Les dés sont lancés pour reculer");
+
+                int dieRoll = getRandomDieRoll(1, 6);
+                playerPosition -= dieRoll;
+                if (playerPosition < 1) playerPosition = 1; // borne de sécurité
+
+                menu.afficherMessage("Vous reculez de " + dieRoll + " cases et vous êtes à la case " + playerPosition + " !");
+                break;
+            default:
+                menu.afficherMessage("Aucune option sélectionnée.");
+        }
+
     }
 }

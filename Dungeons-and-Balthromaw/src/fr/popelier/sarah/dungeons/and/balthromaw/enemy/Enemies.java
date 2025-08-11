@@ -1,7 +1,6 @@
 package fr.popelier.sarah.dungeons.and.balthromaw.enemy;
 
-import fr.popelier.sarah.dungeons.and.balthromaw.model.Entity;
-import fr.popelier.sarah.dungeons.and.balthromaw.model.Fighter;
+import fr.popelier.sarah.dungeons.and.balthromaw.game.fight.Fighter;
 import fr.popelier.sarah.dungeons.and.balthromaw.character.Character;
 /**
  * Représente les ennemies

@@ -1,4 +1,4 @@
-package fr.popelier.sarah.dungeons.and.balthromaw.model;
+package fr.popelier.sarah.dungeons.and.balthromaw.game.fight;
 
 import fr.popelier.sarah.dungeons.and.balthromaw.character.Character;
 

@@ -1,7 +1,6 @@
-package fr.popelier.sarah.dungeons.and.balthromaw.game;
+package fr.popelier.sarah.dungeons.and.balthromaw.game.fight;
 
 import fr.popelier.sarah.dungeons.and.balthromaw.character.Character;
-import fr.popelier.sarah.dungeons.and.balthromaw.model.Fighter;
 import fr.popelier.sarah.dungeons.and.balthromaw.ui.Menu;
 
 public class Fight {
@@ -17,6 +16,7 @@ public class Fight {
     }
 
     public void start() {
+
         menu.afficherMessage("Le combat commence entre " + player.getName() + " et " + enemy.getName() + " !");
 
         while (player.getLife() > 0 && enemy.getLife() > 0) {
@@ -26,7 +26,7 @@ public class Fight {
             menu.afficherMessage(enemy.getName() + " contre-attaque ! " + player.getName() + " perd " + damageToPlayer + " PV (reste : " + player.getLife() + ")");
 
             if (player.getLife() <= 0) {
-                menu.afficherMessage("☠️ " + player.getName() + " est tombé au combat...");
+                menu.afficherMessage(player.getName() + " est tombé au combat...");
                 return;
             }
 
@@ -36,7 +36,7 @@ public class Fight {
             menu.afficherMessage(player.getName() + " attaque ! " + enemy.getName() + " perd " + damageToEnemy + " PV (reste : " + enemy.getLife() + ")");
 
             if (enemy.getLife() <= 0) {
-                menu.afficherMessage("🎉 " + player.getName() + " a vaincu " + enemy.getName() + " !");
+                menu.afficherMessage(player.getName() + " a vaincu " + enemy.getName() + " !");
             }
         }
     }

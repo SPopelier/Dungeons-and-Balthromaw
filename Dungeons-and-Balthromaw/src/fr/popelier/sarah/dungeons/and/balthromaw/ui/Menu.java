@@ -74,6 +74,23 @@ public class Menu {
 
     }
 
+    public int choixCombat() {
+        Object[] options = {"COMBAT", "FUITE"};
+
+        int actionChoice = JOptionPane.showOptionDialog(
+                null, //parentComponent
+                "COMBAT ou FUITE ?", //message
+                "Menu", //title
+                JOptionPane.DEFAULT_OPTION, //optionType
+                JOptionPane.QUESTION_MESSAGE, //messageType
+                null, //icon
+                options, //custom options
+                options[0]); /* initialValue */
+
+        return actionChoice;
+    }
+
+
 }
 
 

@@ -3,7 +3,7 @@ package fr.popelier.sarah.dungeons.and.balthromaw.character;
 import fr.popelier.sarah.dungeons.and.balthromaw.equipment.defensive.DefensiveEquipment;
 import fr.popelier.sarah.dungeons.and.balthromaw.equipment.offensive.OffensiveEquipment;
 import fr.popelier.sarah.dungeons.and.balthromaw.model.Entity;
-import fr.popelier.sarah.dungeons.and.balthromaw.model.Fighter;
+import fr.popelier.sarah.dungeons.and.balthromaw.game.fight.Fighter;
 
 /**
  *Représente un personnage jouable Warrior ou Sorcerer

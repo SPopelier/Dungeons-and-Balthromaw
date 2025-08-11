@@ -2,8 +2,8 @@ package fr.popelier.sarah.dungeons.and.balthromaw.enemy;
 
 
 import fr.popelier.sarah.dungeons.and.balthromaw.character.Character;
-import fr.popelier.sarah.dungeons.and.balthromaw.game.Fight;
-import fr.popelier.sarah.dungeons.and.balthromaw.model.Fighter;
+import fr.popelier.sarah.dungeons.and.balthromaw.game.fight.Fight;
+import fr.popelier.sarah.dungeons.and.balthromaw.game.fight.Fighter;
 import fr.popelier.sarah.dungeons.and.balthromaw.ui.Menu;
 
 /**

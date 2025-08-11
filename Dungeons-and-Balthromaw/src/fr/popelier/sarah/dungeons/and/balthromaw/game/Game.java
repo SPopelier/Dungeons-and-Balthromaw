@@ -133,7 +133,7 @@ public class Game {
                 if (actionChoice == 0) {
                     menu.afficherMessage("Les dés sont lancés");
                     dieRoll = getRandomDieRoll(1, 6);
-                    result = playerPosition += dieRoll;
+                    playerPosition += dieRoll;
 
                     int ligne = (playerPosition - 1) / 8;
                     int colonne = (playerPosition - 1) % 8;
