@@ -13,7 +13,7 @@ public class EmptyCell extends Cell {
 
     @Override
     public String getSymbol() {
-        return "| Vide |"; // pour vide
+        return " X "; // pour vide
     }
 
     @Override

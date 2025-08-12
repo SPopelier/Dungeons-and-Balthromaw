@@ -15,7 +15,6 @@ public class EnemyCell extends Cell {
 
     Enemies enemies;
     Menu menu = new Menu();
-    int dieRoll;
     int playerPosition;
 
     public Enemies getEnemies() {
@@ -28,7 +27,7 @@ public class EnemyCell extends Cell {
 
     @Override
     public String getSymbol() {
-        return "| En |";
+        return " Ennemi ";
     }
 
     @Override

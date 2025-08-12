@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class PotionCell extends Cell {
     Potion potion;
-    Menu menu = new Menu();
+    private Menu menu = new Menu();
 
     public Potion getPotion() {
         return potion;
@@ -23,13 +23,13 @@ public class PotionCell extends Cell {
 
     @Override
     public String getSymbol() {
-        return "| Po |";
+        return "Potion";
     }
 
     @Override
     public void interact(Character player) {
 
-        player.changeLife(potion.getBonusLife());
+        player.changeLife( player.getLife() + potion.getBonusLife());
         menu.afficherMessage("Noble héro : tu obtiens : " + potion.getBonusLife() + " de points de vie !");
     }
 }

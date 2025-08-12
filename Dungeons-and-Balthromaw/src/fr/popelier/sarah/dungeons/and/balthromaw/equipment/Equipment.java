@@ -1,5 +1,7 @@
 package fr.popelier.sarah.dungeons.and.balthromaw.equipment;
 
+import java.io.Serializable;
+
 /**
  * Représente la classe des équipements(name)
  */

@@ -1,5 +1,6 @@
 package fr.popelier.sarah.dungeons.and.balthromaw.game;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import fr.popelier.sarah.dungeons.and.balthromaw.enemy.Dragon;
@@ -14,7 +15,7 @@ import fr.popelier.sarah.dungeons.and.balthromaw.equipment.potion.StandardPotion
 import fr.popelier.sarah.dungeons.and.balthromaw.game.cell.*;
 
 
-public class GameBoard {
+public class GameBoard  {
 
     protected Cell[][] board;
 
@@ -54,6 +55,9 @@ public class GameBoard {
      * affiche le contenu du plateau sous forme textuelle
      */
     public String display() {
+
+
+
         StringBuilder sb = new StringBuilder("Plateau de jeu :\n\n");
         for (int i = 0; i< LIGNES; i++){
             for (int j = 0; j< COLONNES; j++) {
@@ -124,7 +128,7 @@ public class GameBoard {
         }
 
         //Placer 2 Big Potion
-        for  (int i = 0; i< 4; i++){
+        for  (int i = 0; i< 3; i++){
             int row = random.nextInt(LIGNES);
             int col = random.nextInt(COLONNES);
             board[row][col] = new PotionCell(new BigPotion());

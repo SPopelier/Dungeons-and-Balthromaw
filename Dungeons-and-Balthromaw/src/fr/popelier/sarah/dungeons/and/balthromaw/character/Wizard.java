@@ -12,7 +12,6 @@ public class Wizard extends Character {
      * @param name le nouveau nom du personnage
      */
     public Wizard(String name) {
-
         super(name, 8, 6);
     }
 }

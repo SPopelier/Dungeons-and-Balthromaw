@@ -106,7 +106,7 @@ public class ConnectionRequest {
         }
     }
 
-    // ------------------- SAUVEGARDE DU PLATEAU -------------------
+  /*  // ------------------- SAUVEGARDE DU PLATEAU -------------------
     public int saveBoard(GameBoard gameBoard, int playerPosition) {
         try {
             Connection conn = connectToDB();
@@ -122,7 +122,7 @@ public class ConnectionRequest {
             e.printStackTrace();
             return 0;
         }
-    }
+    }*/
 
     // ------------------- CHARGER UN PLATEAU -------------------
     public int loadBoard(int gameBoardId, int playerPosition) {

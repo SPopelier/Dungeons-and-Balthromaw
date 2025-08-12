@@ -20,7 +20,7 @@ public class Sorcerer extends Enemies implements Fighter {
      */
     public Sorcerer(int attack, int life) {
 
-        super("Sorcerer", 2, 9);
+        super("Sorcier",2, 9);
     }
 
     @Override
