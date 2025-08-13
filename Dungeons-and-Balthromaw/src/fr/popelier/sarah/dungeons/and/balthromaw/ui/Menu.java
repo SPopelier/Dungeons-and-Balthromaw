@@ -1,9 +1,6 @@
 package fr.popelier.sarah.dungeons.and.balthromaw.ui;
 
-import fr.popelier.sarah.dungeons.and.balthromaw.character.Character;
-
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 // Importe toutes les classes du package Swing, y compris JOptionPane.
 // C’est ce qu’on utilise pour afficher les boîtes de dialogue.
 

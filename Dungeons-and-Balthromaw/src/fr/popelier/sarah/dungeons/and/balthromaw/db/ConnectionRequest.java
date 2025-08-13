@@ -1,7 +1,6 @@
 package fr.popelier.sarah.dungeons.and.balthromaw.db;
 
 import fr.popelier.sarah.dungeons.and.balthromaw.character.Character;
-import fr.popelier.sarah.dungeons.and.balthromaw.game.GameBoard;
 
 import java.sql.*;
 

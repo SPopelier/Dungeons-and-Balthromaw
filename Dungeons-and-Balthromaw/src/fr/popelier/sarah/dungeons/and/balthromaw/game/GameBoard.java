@@ -128,7 +128,7 @@ public class GameBoard  {
         }
 
         //Placer 2 Big Potion
-        for  (int i = 0; i< 3; i++){
+        for  (int i = 0; i< 1; i++){
             int row = random.nextInt(LIGNES);
             int col = random.nextInt(COLONNES);
             board[row][col] = new PotionCell(new BigPotion());
