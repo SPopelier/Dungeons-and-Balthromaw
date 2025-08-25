@@ -1,9 +1,6 @@
 package fr.popelier.sarah.dungeons.and.balthromaw.ui;
 
-import fr.popelier.sarah.dungeons.and.balthromaw.character.Character;
-
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 // Importe toutes les classes du package Swing, y compris JOptionPane.
 // C’est ce qu’on utilise pour afficher les boîtes de dialogue.
 
@@ -20,7 +17,14 @@ public class Menu {
      * @return le message de l'utilisateur
      */
     public String demanderTexte(String message) {
-        return JOptionPane.showInputDialog(message);
+        String texte = JOptionPane.showInputDialog(message);
+
+        // Si l'utilisateur ferme la fenêtre ou annule → on quitte
+        if (texte == null) {
+            System.exit(0);
+        }
+
+        return texte;
     }
 
     /**
@@ -28,7 +32,18 @@ public class Menu {
      * @param message affiche le message dans le menu
      */
     public void afficherMessage(String message) {
-        JOptionPane.showMessageDialog(null, message);
+        int choix = JOptionPane.showConfirmDialog(
+                null,
+                message,
+                "Message",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.INFORMATION_MESSAGE
+        );
+
+        // Si l'utilisateur ferme la fenêtre (croix)
+        if (choix == JOptionPane.CLOSED_OPTION) {
+            System.exit(0);
+        }
     }
 
     /**
@@ -48,6 +63,11 @@ public class Menu {
                 null, //icon
                 options, //custom options
                 options[0]); /* initialValue */
+
+        // Si l'utilisateur ferme la fenêtre (croix), on quitte le programme
+        if (buttonChoice == JOptionPane.CLOSED_OPTION) {
+            System.exit(0);
+        }
 
         return buttonChoice;
     }
@@ -70,9 +90,36 @@ public class Menu {
                 options, //custom options
                 options[0]); /* initialValue */
 
+        // Si l'utilisateur ferme la fenêtre (croix), on quitte le programme
+        if (actionChoice == JOptionPane.CLOSED_OPTION) {
+            System.exit(0);
+        }
+
         return actionChoice;
 
     }
+
+    public int choixCombat() {
+        Object[] options = {"COMBAT", "FUITE"};
+
+        int actionChoice = JOptionPane.showOptionDialog(
+                null, //parentComponent
+                "COMBAT ou FUITE ?", //message
+                "Menu", //title
+                JOptionPane.DEFAULT_OPTION, //optionType
+                JOptionPane.QUESTION_MESSAGE, //messageType
+                null, //icon
+                options, //custom options
+                options[0]); /* initialValue */
+
+        // Si l'utilisateur ferme la fenêtre (croix), on quitte le programme
+        if (actionChoice == JOptionPane.CLOSED_OPTION) {
+            System.exit(0);
+        }
+
+        return actionChoice;
+    }
+
 
 }
 

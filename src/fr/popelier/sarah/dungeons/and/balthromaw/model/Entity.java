@@ -3,7 +3,7 @@ package fr.popelier.sarah.dungeons.and.balthromaw.model;
 /**
  * Représente la classe de base avec les attributs pour tous les personnages
  */
-public class Entity {
+public abstract class Entity {
 
     /**
      * Le niveau d'attaque
